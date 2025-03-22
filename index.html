@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteTaker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>NoteTaker</h1>
+            <p>Simple note management for personal use</p>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <button id="new-note-btn" class="btn btn-primary">New Note</button>
+                <div class="search-box">
+                    <input type="text" id="search" placeholder="Search notes...">
+                </div>
+                <div id="notes-list" class="notes-list">
+                    <!-- Notes will be loaded here -->
+                </div>
+            </div>
+
+            <div class="editor-area">
+                <div id="note-editor" class="note-editor">
+                    <input type="text" id="note-title" placeholder="Note title..." class="note-title">
+                    <textarea id="note-content" placeholder="Start writing your note..." class="note-content"></textarea>
+                    <div class="note-actions">
+                        <button id="save-note" class="btn btn-success">Save</button>
+                        <button id="delete-note" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
