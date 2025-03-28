@@ -133,6 +133,29 @@ header p {
     margin-bottom: 15px;
 }
 
+.tags-section {
+    margin-bottom: 15px;
+}
+
+.note-tags {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin: 2px;
+}
+
 .note-actions {
     display: flex;
     gap: 10px;

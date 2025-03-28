@@ -34,6 +34,7 @@ class NoteTaker {
             id: Date.now(),
             title: 'Untitled Note',
             content: '',
+            tags: [],
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
         };
@@ -49,9 +50,12 @@ class NoteTaker {
 
         const title = document.getElementById('note-title').value || 'Untitled Note';
         const content = document.getElementById('note-content').value;
+        const tagsInput = document.getElementById('note-tags').value;
+        const tags = tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
 
         this.currentNote.title = title;
         this.currentNote.content = content;
+        this.currentNote.tags = tags;
         this.currentNote.updatedAt = new Date().toISOString();
 
         this.saveNotes();
@@ -73,7 +77,8 @@ class NoteTaker {
     searchNotes(query) {
         const filteredNotes = this.notes.filter(note =>
             note.title.toLowerCase().includes(query.toLowerCase()) ||
-            note.content.toLowerCase().includes(query.toLowerCase())
+            note.content.toLowerCase().includes(query.toLowerCase()) ||
+            (note.tags && note.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())))
         );
         this.renderNotesList(filteredNotes);
     }
@@ -91,9 +96,14 @@ class NoteTaker {
                 noteElement.classList.add('active');
             }
 
+            const tagsHtml = note.tags && note.tags.length > 0
+                ? `<div class="note-item-tags">${note.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>`
+                : '';
+
             noteElement.innerHTML = `
                 <h4>${note.title}</h4>
                 <p>${note.content.substring(0, 50)}${note.content.length > 50 ? '...' : ''}</p>
+                ${tagsHtml}
                 <small>${new Date(note.updatedAt).toLocaleDateString()}</small>
             `;
 
@@ -106,12 +116,14 @@ class NoteTaker {
         this.currentNote = note;
         document.getElementById('note-title').value = note.title;
         document.getElementById('note-content').value = note.content;
+        document.getElementById('note-tags').value = note.tags ? note.tags.join(', ') : '';
         this.renderNotesList();
     }
 
     clearEditor() {
         document.getElementById('note-title').value = '';
         document.getElementById('note-content').value = '';
+        document.getElementById('note-tags').value = '';
     }
 }
 
