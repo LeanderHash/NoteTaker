@@ -15,6 +15,7 @@ class NoteTaker {
         document.getElementById('new-note-btn').addEventListener('click', () => this.createNewNote());
         document.getElementById('save-note').addEventListener('click', () => this.saveCurrentNote());
         document.getElementById('delete-note').addEventListener('click', () => this.deleteCurrentNote());
+        document.getElementById('export-notes').addEventListener('click', () => this.exportNotes());
         document.getElementById('search').addEventListener('input', (e) => this.searchNotes(e.target.value));
     }
 
@@ -124,6 +125,29 @@ class NoteTaker {
         document.getElementById('note-title').value = '';
         document.getElementById('note-content').value = '';
         document.getElementById('note-tags').value = '';
+    }
+
+    exportNotes() {
+        if (this.notes.length === 0) {
+            alert('No notes to export');
+            return;
+        }
+
+        const exportData = {
+            exportDate: new Date().toISOString(),
+            notesCount: this.notes.length,
+            notes: this.notes
+        };
+
+        const dataStr = JSON.stringify(exportData, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(dataBlob);
+        link.download = `notes-export-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 }
 
