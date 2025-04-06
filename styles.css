@@ -36,6 +36,22 @@ header p {
     height: 600px;
 }
 
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
+
 .sidebar {
     width: 300px;
     background: white;
@@ -159,6 +175,25 @@ header p {
 .note-actions {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+    .note-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        margin-bottom: 5px;
+    }
+
+    .note-title, .note-tags {
+        font-size: 16px;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
 }
 
 .btn-success {
