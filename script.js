@@ -49,12 +49,29 @@ class NoteTaker {
     saveCurrentNote() {
         if (!this.currentNote) return;
 
-        const title = document.getElementById('note-title').value || 'Untitled Note';
-        const content = document.getElementById('note-content').value;
-        const tagsInput = document.getElementById('note-tags').value;
-        const tags = tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+        const titleInput = document.getElementById('note-title');
+        const contentInput = document.getElementById('note-content');
+        const tagsInput = document.getElementById('note-tags');
 
-        this.currentNote.title = title;
+        // Basic validation
+        const title = (titleInput.value || '').trim();
+        const content = (contentInput.value || '').trim();
+
+        if (!title && !content) {
+            alert('Please add a title or content before saving');
+            return;
+        }
+
+        const tags = tagsInput.value.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+
+        // Validate tag length
+        const invalidTags = tags.filter(tag => tag.length > 20);
+        if (invalidTags.length > 0) {
+            alert('Tags must be 20 characters or less');
+            return;
+        }
+
+        this.currentNote.title = title || 'Untitled Note';
         this.currentNote.content = content;
         this.currentNote.tags = tags;
         this.currentNote.updatedAt = new Date().toISOString();
@@ -76,10 +93,16 @@ class NoteTaker {
     }
 
     searchNotes(query) {
+        const searchTerm = query.trim().toLowerCase();
+        if (!searchTerm) {
+            this.renderNotesList();
+            return;
+        }
+
         const filteredNotes = this.notes.filter(note =>
-            note.title.toLowerCase().includes(query.toLowerCase()) ||
-            note.content.toLowerCase().includes(query.toLowerCase()) ||
-            (note.tags && note.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())))
+            note.title.toLowerCase().includes(searchTerm) ||
+            note.content.toLowerCase().includes(searchTerm) ||
+            (note.tags && note.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
         );
         this.renderNotesList(filteredNotes);
     }
