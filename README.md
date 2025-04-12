@@ -5,10 +5,13 @@ A simple, lightweight note-taking application for personal use. Store and organi
 ## Features
 
 - Create, edit, and delete notes
-- Real-time search functionality
+- Tag system for better organization
+- Real-time search functionality (search by title, content, or tags)
+- Export all notes to JSON format
 - Local storage (no server required)
 - Clean, responsive interface
-- Auto-save functionality
+- Input validation and data integrity
+- Mobile-friendly design
 
 ## Usage
 
